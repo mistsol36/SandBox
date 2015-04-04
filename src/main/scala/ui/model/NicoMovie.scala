@@ -1,4 +1,4 @@
-package model
+package ui.model
 
 import dispatch._
 import dispatch.Defaults._
