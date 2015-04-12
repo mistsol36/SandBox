@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
+ * アプリケーションのエントリポイント
+ *
  * Created by kodama on 2015/04/04.
  */
 public class NMVMain extends Application {

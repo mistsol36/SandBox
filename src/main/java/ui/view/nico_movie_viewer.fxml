@@ -13,12 +13,12 @@
     <children>
 
         <!-- 動画ID -->
-        <Label text="動画ID" prefWidth="50.0"
+        <Label text="URL or ID" prefWidth="50.0"
                AnchorPane.topAnchor="12.0"
                AnchorPane.leftAnchor="8.0" />
 
         <!-- 動画IDテキストフィールド -->
-        <TextField fx:id="smNoField"
+        <TextField fx:id="movieNoField"
                    prefWidth="150.0"
                    AnchorPane.topAnchor="8.0"
                    AnchorPane.leftAnchor="70.0" />

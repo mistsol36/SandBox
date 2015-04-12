@@ -13,7 +13,7 @@ public class NMVController {
 
     /** 動画IDフィールド */
     @FXML
-    private TextField smNoField;
+    private TextField movieNoField;
 
     /** 動画タイトルフィールド */
     @FXML
@@ -25,8 +25,8 @@ public class NMVController {
      */
     @FXML
     public void handleOK(ActionEvent event) {
-        String inputText = smNoField.getText();
+        String inputText = movieNoField.getText();
         NicoMovie nicoMovie = new NicoMovie(inputText);
-        titleField.setText(nicoMovie.title());
+        titleField.setText(nicoMovie.getTitle());
     }
 }
