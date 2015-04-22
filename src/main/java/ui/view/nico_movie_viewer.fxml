@@ -23,7 +23,7 @@
                    AnchorPane.topAnchor="8.0"
                    AnchorPane.leftAnchor="70.0" />
 
-        <!-- Oボタン -->
+        <!-- OKボタン -->
         <Button onAction="#handleOK"
                 text="OK" prefWidth="60.0"
                 AnchorPane.topAnchor="8.0"

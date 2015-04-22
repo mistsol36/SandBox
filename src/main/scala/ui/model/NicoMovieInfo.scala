@@ -6,14 +6,13 @@ import scala.util.matching.Regex
 import scala.xml.XML
 
 /**
- * ニコニコ動画APIにアクセスし、指定の情報を取得するクラス
+ * 動画の情報を保持するクラス
  *
  * @param inputText 動画URLまたは動画ID
  * Created by kodama on 2015/04/04.
  */
-class NicoMovie (inputText : String) {
+class NicoMovieInfo (inputText : String) { // コンストラクタはクラスのブロック内に書く（基本コンストラクタ）
 
-  // コンストラクタはクラスのブロック内に書く（基本コンストラクタ）
   /** 動画ID */
   private val movieNo = {
     val noR : Regex = """(sm|nm)?[0-9]+""".r
@@ -24,15 +23,22 @@ class NicoMovie (inputText : String) {
     }
   }
 
+  /** API URL */
+  private val apiUrl = "http://ext.nicovideo.jp/api/getthumbinfo/"
+
+  /** APIから返却されたXML */
+  private val rtnXml = {
+    val svc = url(apiUrl.union(movieNo))
+    val html = Http(svc OK as.String)
+    XML.loadString(html())
+  }
+
   /**
    * 動画タイトルを取得。
    *
    * @return 動画タイトル
    */
-  def getTitle(): String = {   // アクセス修飾子を付けないとpublic
-    val svc = url("http://ext.nicovideo.jp/api/getthumbinfo/".union(movieNo))
-    val html = Http(svc OK as.String)
-    val xml = XML.loadString(html())
-    (xml \\ "title").text
+  def getTitle: String = { // アクセス修飾子を付けないとpublic
+    (rtnXml \\ "title").text
   }
 }
