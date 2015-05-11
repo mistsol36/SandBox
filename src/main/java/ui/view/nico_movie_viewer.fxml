@@ -3,36 +3,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <!-- NicoMovieViewer -->
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ui.controller.NMVController"
-            prefWidth="300.0" prefHeight="80.0">
+
+<AnchorPane prefHeight="471.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controller.NMVController">
 
     <children>
+      <AnchorPane prefHeight="70.0" prefWidth="502.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <!-- 動画ID -->
+              <Label prefHeight="16.0" prefWidth="67.0" text="URL or ID" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="12.0" />
+              <!-- 動画IDテキストフィールド -->
+              <TextField fx:id="movieNoField" prefHeight="26.0" prefWidth="295.0" AnchorPane.leftAnchor="86.0" AnchorPane.topAnchor="8.0" />
+              <!-- OKボタン -->
+              <Button layoutX="396.0" layoutY="8.0" onAction="#handleOK" prefHeight="26.0" prefWidth="94.0" text="OK" />
+            <Label layoutX="20.0" layoutY="43.0" prefHeight="16.0" prefWidth="48.0" text="TITLE" />
+            <TextField fx:id="titleField" editable="false" layoutX="86.0" layoutY="38.0" prefHeight="26.0" prefWidth="295.0" />
+         </children>
+      </AnchorPane>
 
-        <!-- 動画ID -->
-        <Label text="URL or ID" prefWidth="50.0"
-               AnchorPane.topAnchor="12.0"
-               AnchorPane.leftAnchor="8.0" />
-
-        <!-- 動画IDテキストフィールド -->
-        <TextField fx:id="movieNoField"
-                   prefWidth="150.0"
-                   AnchorPane.topAnchor="8.0"
-                   AnchorPane.leftAnchor="70.0" />
-
-        <!-- OKボタン -->
-        <Button onAction="#handleOK"
-                text="OK" prefWidth="60.0"
-                AnchorPane.topAnchor="8.0"
-                AnchorPane.rightAnchor="8.0" />
-
-        <!--動画タイトルラベル -->
-        <Label fx:id="titleField"
-               prefWidth="260.0"
-               AnchorPane.topAnchor="40.0"
-               AnchorPane.leftAnchor="8.0" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+         <children>
+             <!-- コメントテーブル -->
+            <TableView fx:id="commentTable" prefHeight="243.0" prefWidth="472.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="userIdColumn" prefWidth="100.0" text="UserID" />
+                <TableColumn fx:id="commentColumn" prefWidth="480.0" text="Comment" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

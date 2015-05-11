@@ -8,7 +8,8 @@ import org.specs2.mutable._
 class NicoMovieCommentSpec extends Specification {
   "NicoMovieCommen" should {
     "case: test" in {
-      new NicoMovieComment()
+      // 動作確認のためのテスト
+      new NicoMovieComment("nm14629738")
       1 must equalTo(1)
     }
   }

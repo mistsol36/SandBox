@@ -1,8 +1,9 @@
 package ui.model
 
-import dispatch._
 import dispatch.Defaults._
-import scala.util.matching.Regex
+import dispatch._
+import util.NicoMovieUtils
+
 import scala.xml.XML
 
 /**
@@ -13,21 +14,14 @@ import scala.xml.XML
  */
 class NicoMovieInfo (inputText : String) { // コンストラクタはクラスのブロック内に書く（基本コンストラクタ）
 
-  /** 動画ID */
-  private val movieNo = {
-    val noR : Regex = """(sm|nm)?[0-9]+""".r
-    val noOption : Option[Regex.Match] = noR.findFirstMatchIn(inputText)
-    noOption match {
-      case Some( noOp ) => noOption.get.toString()
-      case None => inputText
-    }
-  }
-
   /** API URL */
-  private val apiUrl = "http://ext.nicovideo.jp/api/getthumbinfo/"
+  val apiUrl = "http://ext.nicovideo.jp/api/getthumbinfo/"
+
+  /** 動画ID */
+  val movieNo = NicoMovieUtils.extractMovieNo(inputText)
 
   /** APIから返却されたXML */
-  private val rtnXml = {
+  val rtnXml = {
     val svc = url(apiUrl.union(movieNo))
     val html = Http(svc OK as.String)
     XML.loadString(html())
