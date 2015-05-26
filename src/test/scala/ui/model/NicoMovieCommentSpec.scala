@@ -6,10 +6,10 @@ import org.specs2.mutable._
  * Created by mist on 2015/04/23.
  */
 class NicoMovieCommentSpec extends Specification {
-  "NicoMovieCommen" should {
+  "NicoMovieComment" should {
     "case: test" in {
       // 動作確認のためのテスト
-      new NicoMovieComment("nm14629738")
+      new NicoMovieComment("http://www.nicovideo.jp/watch/sm26155774")
       1 must equalTo(1)
     }
   }

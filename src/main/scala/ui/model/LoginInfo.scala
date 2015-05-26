@@ -1,5 +1,6 @@
-package common
+package ui.model
 
+import com.ning.http.client.cookie.Cookie
 import dispatch.Defaults._
 import dispatch._
 
@@ -7,12 +8,24 @@ import scala.collection.JavaConverters._
 import scala.collection.immutable.Map
 
 /**
- * Created by bububu10 on 15/05/12.
+ * ログイン情報はアプリケーション内で１つでいい気がするのでobjectにする。
+ *
+ * Created by bububu10 on 15/05/27.
  */
-class NicoMovieLogin(mailAddress: String, password: String) {
+object LoginInfo {
 
-    val loginUrl = "https://secure.nicovideo.jp/secure/login?site=niconico"
+  /** Login URL */
+  val loginUrl: String = "https://secure.nicovideo.jp/secure/login?site=niconico"
 
+  // TODO メアド・パスワードは設定ファイルから読み込むようにする
+  /** メールアドレス */
+  val mailAddress: String = "xxxxx"
+
+  /** パスワード */
+  val password: String = "xxxxx"
+
+  /** ユーザーセッション */
+  def getUserSession: Cookie = {
     // リクエストの作成。
     // メソッドはPOST、パラメータにメールアドレスとパスワードを渡す。
     // ref. http://www.flotsam.nl/dispatch-periodic-table.html
@@ -23,8 +36,7 @@ class NicoMovieLogin(mailAddress: String, password: String) {
     // 以下scalaとdispatchの公式。あとで読む。
     // ref-1. http://docs.scala-lang.org/ja/overviews/core/futures.html
     // ref-2. http://dispatch.databinder.net/Promising+success+and+failure.html
-    val http = new Http
-    val resFuture = http(req)
+    val resFuture = Http(req)
 
     //    println("#############responseHeader##############")
     //    println(resFuture().getHeaders)
@@ -40,12 +52,13 @@ class NicoMovieLogin(mailAddress: String, password: String) {
     // ref-2. http://www.ne.jp/asahi/hishidama/home/tech/scala/collection/javaconv.html
 
     //    println("#############allCookie##############")
-    //    cookie.foreach(c => println(c.getName + " = " + c.getValue))
+    //    println(cookie)
+    //    cookie.foreach(c => println(c.getName + " : " + c.getValue))
 
     // クッキーからユーザセッションの生きてる奴を抜いてくる
+    //    println(cookie.filter(c => c.getName == "user_session" && c.getValue != "deleted"))
+    //    println(cookie.filter(c => c.getName == "user_session"))
     val userSession = cookie.filter(c => c.getName == "user_session" && c.getValue != "deleted")
-
-    //    println("#############userSession(ALIVE)##############")
-    //    userSession.foreach(us => println(us.getName + " = " + us.getValue))
-
+    userSession(0)
+  }
 }
