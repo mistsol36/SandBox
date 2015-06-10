@@ -19,10 +19,10 @@ object LoginInfo {
 
   // TODO メアド・パスワードは設定ファイルから読み込むようにする
   /** メールアドレス */
-  val mailAddress: String = "xxxxx"
+  val mailAddress: String = "***"
 
   /** パスワード */
-  val password: String = "xxxxx"
+  val password: String = "***"
 
   /** ユーザーセッション */
   def getUserSession: Cookie = {

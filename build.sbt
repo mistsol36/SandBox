@@ -7,6 +7,7 @@ lazy val root = (project in file(".")).
       "org.scalatest" %% "scalatest" % "2.2.4" % "test",
       "net.databinder.dispatch" %% "dispatch-core" % "0.11.2",
       "org.slf4j" % "slf4j-simple" % "1.6.4",
-      "org.specs2" %% "specs2-core" % "2.4.17" % "test"
+      "org.specs2" %% "specs2-core" % "2.4.17" % "test",
+      "org.json4s" %% "json4s-native" % "3.2.11"
     )
   )

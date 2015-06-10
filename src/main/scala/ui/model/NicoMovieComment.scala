@@ -43,7 +43,7 @@ class NicoMovieComment(inputText: String) {
   val msgSrvUrl = divided(3).drop(3)
   
   // postするxmlの準備
-  val postXml = <thread thread={threadId} version="20061206" res_from="100"/>
+  val postXml = <thread thread={threadId} version="20061206" res_from="446"/>
 
   // xmlをメッセージサーバに送信
   val reqMsg = url(msgSrvUrl).POST.setBody(postXml.toString)
