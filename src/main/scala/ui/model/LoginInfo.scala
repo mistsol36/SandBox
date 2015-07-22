@@ -4,6 +4,11 @@ import com.ning.http.client.cookie.Cookie
 import dispatch.Defaults._
 import dispatch._
 
+import scala.slick.driver.SQLiteDriver.simple._
+import java.io.File
+import java.util.Date
+import java.util.Calendar
+
 import scala.collection.JavaConverters._
 import scala.collection.immutable.Map
 
@@ -60,5 +65,37 @@ object LoginInfo {
     //    println(cookie.filter(c => c.getName == "user_session"))
     val userSession = cookie.filter(c => c.getName == "user_session" && c.getValue != "deleted")
     userSession(0)
+  }
+
+  def getUserSessionByCookie: Cookie = {
+    val basePath = getBasePath("C:\\Users\\mist\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles")
+    val cookiePath = basePath + "\\cookies.sqlite"
+
+    val Initialize = !new File(cookiePath).exists()
+
+    val db = Database.forURL("jdbc:sqlite:" + cookiePath, driver = "org.sqlite.JDBC")
+    val con = db.createSession().conn
+    val stmt = con.prepareStatement("select * from main.moz_cookies where name = 'user_session' and baseDomain = 'nicovideo.jp'")
+    val result = stmt.execute()
+    val resultSet = stmt.executeQuery()
+
+    println(resultSet.next())
+    val name = resultSet.getString("name")
+    val value = resultSet.getString("value")
+    val host = resultSet.getString("host")
+    val path = resultSet.getString("path")
+//    val expiry =   resultSet.getLong("expiry") * 1000
+    val cal = Calendar.getInstance()
+    cal.set(2030,1,1)
+    val expiry = cal.getTime.getTime
+    val isSecure =    resultSet.getBoolean("isSecure")
+    val isHttpOnly =    resultSet.getBoolean("isHttpOnly")
+
+    Cookie.newValidCookie(name, value, host, value, path, expiry, -1, isSecure, isHttpOnly)
+  }
+
+  private def getBasePath(dir: String) = {
+    new File(dir).listFiles.head.getPath
+    //println(path)
   }
 }

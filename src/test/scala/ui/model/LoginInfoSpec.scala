@@ -7,9 +7,14 @@ import org.specs2.mutable._
  */
 class LoginInfoSpec extends Specification {
   "LoginInfo" should {
-    "case: test" in {
+    "case: getUserSession" in {
       // 動作確認のためのテスト
       println(LoginInfo.getUserSession)
+      todo
+    }
+    "case: getUserSessionByCookie" in {
+      // 動作確認のためのテスト
+      println(LoginInfo.getUserSessionByCookie)
       todo
     }
   }

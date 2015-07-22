@@ -30,7 +30,7 @@ class NicoLiveRanking {
 
     onAirStreamInfo.onair_stream_list foreach( f =>  nicoLiveInfoSet += new NicoLiveInfo(f))
   }
-  for (index <- 0 until 10) {
+  for (index <- 0 until 1) {
     val rankingUrl = s"http://live.nicovideo.jp/api/getzappinglist?zroute=recent&zpage=${index}&sort=view_counter&order=desc"
     val rankReq = url(rankingUrl).GET.addCookie(LoginInfo.getUserSession)
     val rankRes = Http(rankReq)
@@ -38,12 +38,11 @@ class NicoLiveRanking {
     val json = rankRes().getResponseBody
     val onAirStreamInfo = parse(json).extract[OnAirStreamInfo]
 
-    println(onAirStreamInfo.onair_stream_list.size)
+    //println(onAirStreamInfo.onair_stream_list.size)
 
     onAirStreamInfo.onair_stream_list foreach( f =>  nicoLiveInfoSet += new NicoLiveInfo(f))
   }
-  println("nicoLiveInfoSet.size" + nicoLiveInfoSet.size)
-
+  //println("nicoLiveInfoSet.size" + nicoLiveInfoSet.size)
 
 }
 
