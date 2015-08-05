@@ -79,7 +79,7 @@ object LoginInfo {
     val result = stmt.execute()
     val resultSet = stmt.executeQuery()
 
-    println(resultSet.next())
+  //  println(resultSet.next())
     val name = resultSet.getString("name")
     val value = resultSet.getString("value")
     val host = resultSet.getString("host")

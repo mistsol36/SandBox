@@ -3,8 +3,8 @@ package ui.model
 import dispatch._
 import org.json4s._
 import org.json4s.native.JsonMethods._
+import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.collection.mutable.Set
 
 /**
  * Created by mist on 2015/06/10.
@@ -17,32 +17,29 @@ class NicoLiveRanking {
   implicit val formats = DefaultFormats
 
 
-  val nicoLiveInfoSet =  Set.empty[NicoLiveInfo]
-  for (index <- 0 until 10) {
-    val rankingUrl = s"http://live.nicovideo.jp/api/getzappinglist?zroute=recent&zpage=${index}&sort=comment_num&order=desc"
-    val rankReq = url(rankingUrl).GET.addCookie(LoginInfo.getUserSession)
+  val nicoLiveInfos =  initNicoLiveInfoList
+
+
+  private def initNicoLiveInfoList: List[NicoLiveInfo] ={
+    val commentNumList = addNicoLiveInfo("comment_num", 0, List())
+    addNicoLiveInfo("view_counter", 0, commentNumList).distinct
+  }
+
+  private def addNicoLiveInfo(sortType:String , index: Int,nicoLiveInfoList:List[NicoLiveInfo]): List[NicoLiveInfo] = {
+    val rankingUrl = s"http://live.nicovideo.jp/api/getzappinglist?zroute=recent&zpage=${index}&sort=" + sortType +"&order=desc"
+    // 取るのは一回でいい
+    val rankReq = url(rankingUrl).GET.addCookie(LoginInfo.getUserSessionByCookie)
     val rankRes = Http(rankReq)
 
     val json = rankRes().getResponseBody
     val onAirStreamInfo = parse(json).extract[OnAirStreamInfo]
 
-    println(onAirStreamInfo.onair_stream_list.size)
-
-    onAirStreamInfo.onair_stream_list foreach( f =>  nicoLiveInfoSet += new NicoLiveInfo(f))
+    var newList = nicoLiveInfoList
+    if(!onAirStreamInfo.onair_stream_list.isEmpty) {
+      onAirStreamInfo.onair_stream_list foreach( f =>  newList =  newList :+ new NicoLiveInfo(f))
+      addNicoLiveInfo(sortType, index + 1, nicoLiveInfoList)
+    }
+    newList
   }
-  for (index <- 0 until 1) {
-    val rankingUrl = s"http://live.nicovideo.jp/api/getzappinglist?zroute=recent&zpage=${index}&sort=view_counter&order=desc"
-    val rankReq = url(rankingUrl).GET.addCookie(LoginInfo.getUserSession)
-    val rankRes = Http(rankReq)
-
-    val json = rankRes().getResponseBody
-    val onAirStreamInfo = parse(json).extract[OnAirStreamInfo]
-
-    //println(onAirStreamInfo.onair_stream_list.size)
-
-    onAirStreamInfo.onair_stream_list foreach( f =>  nicoLiveInfoSet += new NicoLiveInfo(f))
-  }
-  //println("nicoLiveInfoSet.size" + nicoLiveInfoSet.size)
 
 }
-

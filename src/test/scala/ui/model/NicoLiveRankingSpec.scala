@@ -9,7 +9,10 @@ class NicoLiveRankingSpec  extends Specification {
   "NicoLiveRanking" should {
     "case: test" in {
       // 動作確認のためのテスト
-      new NicoLiveRanking()
+      val nicoLiveRanking = new NicoLiveRanking()
+      nicoLiveRanking.nicoLiveInfos.foreach( f => {
+        println(f.title)
+      })
       1 must equalTo(1)
     }
   }
