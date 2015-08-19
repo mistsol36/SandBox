@@ -11,7 +11,9 @@ class NicoLiveRankingSpec  extends Specification {
       // 動作確認のためのテスト
       val nicoLiveRanking = new NicoLiveRanking()
       nicoLiveRanking.nicoLiveInfos.foreach( f => {
-        println(f.title)
+        print(f.title)
+        print(" : ")
+        println(f.thumbnailSmallUrl)
       })
       1 must equalTo(1)
     }

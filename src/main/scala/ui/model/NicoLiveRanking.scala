@@ -3,7 +3,8 @@ package ui.model
 import dispatch._
 import org.json4s._
 import org.json4s.native.JsonMethods._
-import scala.collection.JavaConverters._
+import collection.JavaConverters._
+import collection.JavaConversions._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -41,5 +42,7 @@ class NicoLiveRanking {
     }
     newList
   }
+
+  def javaList(): java.util.List[NicoLiveInfo] = nicoLiveInfos.asJava
 
 }
