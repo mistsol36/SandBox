@@ -1,16 +1,15 @@
 package ui.model
 
+import java.io.File
+import java.util.Calendar
+
 import com.ning.http.client.cookie.Cookie
 import dispatch.Defaults._
 import dispatch._
 
-import scala.slick.driver.SQLiteDriver.simple._
-import java.io.File
-import java.util.Date
-import java.util.Calendar
-
 import scala.collection.JavaConverters._
 import scala.collection.immutable.Map
+import scala.slick.driver.SQLiteDriver.simple._
 
 /**
  * ログイン情報はアプリケーション内で１つでいい気がするのでobjectにする。

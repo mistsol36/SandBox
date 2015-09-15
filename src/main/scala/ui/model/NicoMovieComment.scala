@@ -3,6 +3,8 @@ package ui.model
 import dispatch._
 import util.NicoMovieUtils
 
+import collection.JavaConverters._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.XML
 
@@ -23,15 +25,15 @@ class NicoMovieComment(inputText: String) {
 
   val comments = initComments
 
-  private def initComments : List[NicoCommentModel] = {
+  private def initComments: List[NicoCommentModel] = {
 
     val no = NicoMovieUtils.extractMovieNo(inputText)
 
     val getflvUrl = s"http://flapi.nicovideo.jp/api/getflv/$no"
 
     // getflvへアクセス
-    //  val reqGetFlv = url(getflvUrl).POST.addCookie(LoginInfo.getUserSession)
-    val reqGetFlv = url(getflvUrl).POST.addCookie(LoginInfo.getUserSessionByCookie)
+    val reqGetFlv = url(getflvUrl).POST.addCookie(LoginInfo.getUserSession)
+    //    val reqGetFlv = url(getflvUrl).POST.addCookie(LoginInfo.getUserSessionByCookie)
     val resFutureGetFlv = Http(reqGetFlv)
     //  println("---------getflvから返却された奴-----------")
     //  println(resFutureGetFlv().getResponseBody)
@@ -64,10 +66,11 @@ class NicoMovieComment(inputText: String) {
     val xml = XML.loadString(body)
     val chatNodeSeq = xml \\ "chat"
 
-    var chatList :List[NicoCommentModel] = List()
+    var chatList: List[NicoCommentModel] = List()
     chatNodeSeq.foreach(chat => chatList = chatList :+ new NicoCommentModel(chat))
 
     chatList
   }
 
+  def javaList(): java.util.List[NicoCommentModel] = comments.asJava
 }

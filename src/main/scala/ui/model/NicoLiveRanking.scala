@@ -3,8 +3,8 @@ package ui.model
 import dispatch._
 import org.json4s._
 import org.json4s.native.JsonMethods._
-import collection.JavaConverters._
-import collection.JavaConversions._
+
+import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -29,7 +29,8 @@ class NicoLiveRanking {
   private def addNicoLiveInfo(sortType:String , index: Int,nicoLiveInfoList:List[NicoLiveInfo]): List[NicoLiveInfo] = {
     val rankingUrl = s"http://live.nicovideo.jp/api/getzappinglist?zroute=recent&zpage=${index}&sort=" + sortType +"&order=desc"
     // 取るのは一回でいい
-    val rankReq = url(rankingUrl).GET.addCookie(LoginInfo.getUserSessionByCookie)
+//    val rankReq = url(rankingUrl).GET.addCookie(LoginInfo.getUserSessionByCookie)
+    val rankReq = url(rankingUrl).GET.addCookie(LoginInfo.getUserSession)
     val rankRes = Http(rankReq)
 
     val json = rankRes().getResponseBody

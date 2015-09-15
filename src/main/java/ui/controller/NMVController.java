@@ -7,7 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ui.model.CommentTableModel;
+import ui.model.NicoCommentModel;
+import ui.model.NicoMovieComment;
 import ui.model.NicoMovieInfo;
+
+import java.util.List;
 
 /**
  * Created by kodama on 2015/04/04.
@@ -52,6 +56,11 @@ public class NMVController {
         commentColumn.setCellValueFactory(new PropertyValueFactory<CommentTableModel, String>("comment"));
 
         // 仮実装
-        commentTable.getItems().add(new CommentTableModel("userId1","comment1"));
+        NicoMovieComment comment = new NicoMovieComment(inputText);
+        List<NicoCommentModel> comments = comment.javaList();
+        for (int i = 1; i < 50; i++) {
+            NicoCommentModel c = comments.get(i);
+            commentTable.getItems().add(new CommentTableModel(c.user_id(), c.comment()));
+        }
     }
 }

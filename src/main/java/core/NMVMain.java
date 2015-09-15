@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * アプリケーションのエントリポイント
- *
+ * <p>
  * Created by kodama on 2015/04/04.
  */
 public class NMVMain extends Application {
@@ -29,7 +29,8 @@ public class NMVMain extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("NicoMovieViewer");
 
-        AnchorPane root = FXMLLoader.load(getClass().getResource("../ui/view/ranking_view.fxml"));
+        AnchorPane root = FXMLLoader.load(getClass().getResource("../ui/view/nico_movie_viewer.fxml"));
+//        AnchorPane root = FXMLLoader.load(getClass().getResource("../ui/view/ranking_view.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
 
