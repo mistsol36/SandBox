@@ -32,7 +32,7 @@ class NicoMovieComment(inputText: String) {
     val getflvUrl = s"http://flapi.nicovideo.jp/api/getflv/$no"
 
     // getflvへアクセス
-    val reqGetFlv = url(getflvUrl).POST.addCookie(LoginInfo.getUserSession)
+    val reqGetFlv = url(getflvUrl).POST.addCookie(LoginInfo.getUserSessionByCookie)
     //    val reqGetFlv = url(getflvUrl).POST.addCookie(LoginInfo.getUserSessionByCookie)
     val resFutureGetFlv = Http(reqGetFlv)
     //  println("---------getflvから返却された奴-----------")
