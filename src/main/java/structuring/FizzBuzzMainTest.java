@@ -111,6 +111,9 @@ public class FizzBuzzMainTest {
      * ・分析結果
      * ・生のテストデータ
      * を保持する
+     *
+     * Enumの使い方については以下参照。
+     * http://maplesystems.co.jp/blog/all/programming/2690.html
      */
     private enum DataType {
         MULTIPLE_OF_3("Fizz"),
